@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-simple.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/paper_plane.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/paper_plane.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/paper_plane.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/paper_plane.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="java awt 布局管理器FlowLayout布局管理器在FlowLayout布局管理器中组件像水流一样向某方向流动，遇到边界就会折回，重头开始排列。默认从左往右排列。Panel和Applet默认使用FlowLayout布局管理器。 FlowLayout有三个构造器：  FlowLayout(): 使用默认对齐方式、默认垂直、水平间距创建FlowLayout布局管理器。  FlowLayout(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java布局管理器">
+<meta property="og:url" content="http://yoursite.com/2018/02/06/java/index.html">
+<meta property="og:site_name" content="lkl的博客">
+<meta property="og:description" content="java awt 布局管理器FlowLayout布局管理器在FlowLayout布局管理器中组件像水流一样向某方向流动，遇到边界就会折回，重头开始排列。默认从左往右排列。Panel和Applet默认使用FlowLayout布局管理器。 FlowLayout有三个构造器：  FlowLayout(): 使用默认对齐方式、默认垂直、水平间距创建FlowLayout布局管理器。  FlowLayout(">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-06T07:13:28.964Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java布局管理器">
+<meta name="twitter:description" content="java awt 布局管理器FlowLayout布局管理器在FlowLayout布局管理器中组件像水流一样向某方向流动，遇到边界就会折回，重头开始排列。默认从左往右排列。Panel和Applet默认使用FlowLayout布局管理器。 FlowLayout有三个构造器：  FlowLayout(): 使用默认对齐方式、默认垂直、水平间距创建FlowLayout布局管理器。  FlowLayout(">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/02/06/java/"/>
+
+
+
+
+
+  <title>java布局管理器 | lkl的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/ssmlkl"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6625ac1f3ee0a12250227cf83ce904423abf351/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">lkl的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/06/java/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lkl">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/haha.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lkl的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">java布局管理器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-06T00:00:00+08:00">
+                2018-02-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="java-awt-布局管理器"><a href="#java-awt-布局管理器" class="headerlink" title="java awt 布局管理器"></a>java awt 布局管理器</h1><h2 id="FlowLayout布局管理器"><a href="#FlowLayout布局管理器" class="headerlink" title="FlowLayout布局管理器"></a>FlowLayout布局管理器</h2><p>在FlowLayout布局管理器中组件像水流一样向某方向流动，遇到边界就会折回，重头开始排列。默认从左往右排列。Panel和Applet默认使用FlowLayout布局管理器。</p>
+<p>FlowLayout有三个构造器：</p>
+<ul>
+<li><p>FlowLayout(): 使用默认对齐方式、默认垂直、水平间距创建FlowLayout布局管理器。</p>
+</li>
+<li><p>FlowLayout(int align): 使用指定对齐方式、默认垂直、水平间距创建FlowLayout布局管理器。</p>
+</li>
+<li><p>FlowLayout(int align,int hgap,int vgap): 使用指定对齐方式、指定垂直、水平间距创建FlowLayout布局管理器。</p>
+</li>
+</ul>
+<p>align表明FlowLayout中组件的排列方向，该参数使用FlowLayout类的静态常量:FlowLayout.LEFT、FlowLayout.CENTER、FlowLayout.RIGHT。</p>
+<a id="more"></a>
+<h2 id="BorderLayout布局管理器"><a href="#BorderLayout布局管理器" class="headerlink" title="BorderLayout布局管理器"></a>BorderLayout布局管理器</h2><p>BorderLayout将容器分成EAST、SOUTH、WEST、NORTH、CENTER五个区域，不同组件可以被放置在任意区域。</p>
+<ul>
+<li>当像容器中添加组件时，需要指定添加到哪个区域。默认添加到中间区域。</li>
+<li>当向某个区域添加多个组件时，后加入的组件会覆盖前面的组件。</li>
+</ul>
+<p>Frame、Dialog、ScrollPane默认使用BorderLayout布局管理器，BorderLayout有两个构造器：</p>
+<ol>
+<li>BorderLayout():使用默认水平间距、垂直间距创建BorderLayout布局管理器；</li>
+<li>BorderLayout(int hgap,int vgap):使用指定的水平间距、垂直间距创建BorderLayout布局管理器。</li>
+</ol>
+<p>BorderLayout布局管理器使用几个静态属性来指定添加到哪个区域，BorderLayout有如下几个静态变量：EAST、NORTH、WEST、SOUTH、CENTER。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class BorderLayout_text &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		</span><br><span class="line">		Frame f = new Frame(&quot;测试窗口&quot;);</span><br><span class="line">		f.setLayout(new BorderLayout(30,5));</span><br><span class="line">		f.add(new Button(&quot;南&quot;),BorderLayout.SOUTH);</span><br><span class="line">		f.add(new Button(&quot;北&quot;),BorderLayout.NORTH);</span><br><span class="line">	   	f.add(new Button(&quot;中&quot;));</span><br><span class="line">		f.add(new Button(&quot;东&quot;),BorderLayout.EAST);</span><br><span class="line">		f.add(new Button(&quot;西&quot;),BorderLayout.WEST);</span><br><span class="line">		f.add(new Button(&quot;中1&quot;));</span><br><span class="line">		f.pack();</span><br><span class="line">		f.setVisible(true);</span><br><span class="line"></span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="GridLayout布局管理器"><a href="#GridLayout布局管理器" class="headerlink" title="GridLayout布局管理器"></a>GridLayout布局管理器</h2><p>GridLayout布局管理器将容器分割成纵横线分割的网络，每个网络所占的区域大小相同。添加组件时，默认从左往右、从上向下依次添加到每个网格中。与FlowLayout不同的是，放在GridLayout布局管理器中的个组件的大小由组件所处的区域来决定。<br>GridLayout有如下两个构造器：</p>
+<ol>
+<li>GridLayout(int rows,int cols):采用指定行数、列数、默认横向间距、纵向间距将容器分割成多个网络。</li>
+<li>GridLayout(int rows,int cols,int hgap,int vgap):采用指定行数、列数、指定横向间距、纵向间距将容器分割成多个网络。</li>
+</ol>
+<p>结合BorderLayout和GridLayout开发的计算器可视窗口：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class GridLayout_text &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">	</span><br><span class="line">		Frame f = new Frame(&quot;计算器&quot;);</span><br><span class="line">		Panel p1 = new Panel();</span><br><span class="line">		p1.add(new TextField(30));</span><br><span class="line">		f.add(p1,BorderLayout.NORTH);</span><br><span class="line">		Panel p2 = new Panel();</span><br><span class="line">		p2.setLayout(new GridLayout(3,5,4,4));</span><br><span class="line">		String[] name =&#123;&quot;0&quot;,&quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,&quot;5&quot;,&quot;6&quot;,&quot;7&quot;,&quot;8&quot;,&quot;9&quot;,&quot;+&quot;,&quot;-&quot;,&quot;*&quot;,&quot;/&quot;,&quot;.&quot;&#125;;</span><br><span class="line">		for (int i=0;i&lt;name.length;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			p2.add(new Button(name[i]));</span><br><span class="line">		&#125;</span><br><span class="line">		f.add(p2);</span><br><span class="line">		f.pack();</span><br><span class="line">		f.setVisible(true);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="GridBagLayout布局管理器"><a href="#GridBagLayout布局管理器" class="headerlink" title="GridBagLayout布局管理器"></a>GridBagLayout布局管理器</h2><p>GridBagLayout布局管理器是最复杂，功能最强大的布局管理器，与GridLayout布局管理器不同的是：在GridBagLayout布局管理器中，一个组件可以跨越一或多个网格，并且可以设置个网格的大小互不相同，从而增加了布局的灵活性。当窗口的大小发生变化时，GridBagLayout布局管理器可以准确地控制窗口各部分的反应。<br>为了处理GridBagLayout中GUI组件的大小、跨越性，Java提供了GridBagConstraints对象，该对象与特定的GUI组件关联，用于控制GUI的大小、跨越性。<br>使用GridBagLayout布局管理器的步骤如下：<br> <strong>1.</strong> 创建GridBagLayout布局管理器，并指定GUI容器使用该布局管理器，如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GridBagLayout gb = new GridBagLayout();</span><br><span class="line">contrainer.setLayout(gb);</span><br></pre></td></tr></table></figure>
+<p><strong>2.</strong> 创建GridBagConstraints对象，并设置该对象的相关属性。如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GridBagConstrains gbc = new GridBagConstraints();</span><br><span class="line">gbc.gridx = 2;</span><br><span class="line">gbc.gridy = 1;</span><br><span class="line">gbc.gridwidth = 2;</span><br><span class="line">gbc.gridheight = 1;</span><br></pre></td></tr></table></figure>
+<p><strong>3.</strong> 调用GridBagLayout对象的方法来建立GridBagConstraints对象和受控组件之间的联系。如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gb.setConstraints(c,gbc); //设置c组件收gbc对象控制。</span><br></pre></td></tr></table></figure>
+<p><strong>4.</strong> 添加组件，如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">constrainer.add(c);</span><br></pre></td></tr></table></figure>
+<p>重复2、 3、 4添加多个组件。</p>
+<p>主要通过GridBagConstraints类控制GUI，该类有以下方法：</p>
+<ul>
+<li><p>gridx、gridy: 设置受该对象控制的GUI组件的左上角所在网格的横向索引、纵向索引。这两个值还可以是默认值GridBagConstraints.RELATIVE(默认值），它表明当前组件紧跟上一个组件。</p>
+</li>
+<li><p>gridwidth、gridheight:设置GUI组件横向、纵向跨越多少个网格，默认值为1。<br>若为GridBagConstraints.REMAINDER，表明GUI是横向、纵向最后一个组件。<br>若为GridBagConstraints.RELATIVE，表明GUI时横向纵向倒数第二个组件。</p>
+</li>
+<li><p>fill:设置受该对象控制的GUI如何占领空白区域。该属性可以接受如下几个属性值：</p>
+<blockquote>
+<p>GridBagConstraints.NONE：GUI组件不扩大。<br>GridBagConstraints.HORIZONTAL: GUI组件水平扩大占领空白区域。<br>GridBagConstraints.VERTICAL: GUI组件垂直扩大占领空白区域。<br>GridBagConstraints.BOTH: GUI组件水平、垂直扩大占领空白区域。</p>
+</blockquote>
+</li>
+<li><p>ipadx、ipady:设置GUI组件横向、纵向内部填充大小。</p>
+</li>
+<li><p>insets: 设置GUI组件的外部填充大小。</p>
+</li>
+<li><p>anchor:设置GUI组件在其显示区域之中的定位方式，有以下几种：GridBagConstraints.CENTER、GridBagConstraints.NORTH、GridBagConstraints.NORTHWEST、GridBagConstraints.NORTHEAST、GridBagConstraints.SOUTH、GridBagConstraints.SOUTHEAST、GridBagConstraints.SOUTHWEST、GridBagConstraints.EAST、GridBagConstraints.WEST。</p>
+</li>
+<li><p>weightx、weighty: 设置GUI组件占领多余空间的水平、垂直增加比例，默认值为0，表示不会扩大。</p>
+</li>
+</ul>
+<p>演示代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">public class GridBagLayout_text&#123;</span><br><span class="line">	public static void main(String[] args)</span><br><span class="line">	&#123;</span><br><span class="line">		Frame f = new Frame();</span><br><span class="line">		GridBagLayout gb = new GridBagLayout();</span><br><span class="line">		GridBagConstraints gbs = new GridBagConstraints();</span><br><span class="line">		f.setLayout(gb);</span><br><span class="line">		</span><br><span class="line">		Button b1=new Button(&quot;b1&quot;);</span><br><span class="line">		gbs.fill=GridBagConstraints.BOTH;</span><br><span class="line">		gbs.gridwidth=GridBagConstraints.REMAINDER;</span><br><span class="line">		gbs.gridheight=1;</span><br><span class="line">		gbs.weightx=1;</span><br><span class="line">		gbs.ipadx=50;</span><br><span class="line">		gbs.ipady=50;</span><br><span class="line">		gb.setConstraints(b1, gbs);</span><br><span class="line">		f.add(b1);</span><br><span class="line">		</span><br><span class="line">		Button b2=new Button(&quot;b2&quot;);</span><br><span class="line">		Button b3=new Button(&quot;b3&quot;);</span><br><span class="line">		Button b4=new Button(&quot;b4&quot;);</span><br><span class="line">		gbs.gridwidth=1;</span><br><span class="line">		gbs.gridheight=1;</span><br><span class="line">		gbs.weightx=1;</span><br><span class="line">		gbs.weighty=0;</span><br><span class="line">		gbs.ipadx=10;</span><br><span class="line">		gbs.ipady=10;</span><br><span class="line">		gbs.insets=new Insets(10,20,30,40);</span><br><span class="line">		gb.setConstraints(b2, gbs);</span><br><span class="line">		gb.setConstraints(b3, gbs);</span><br><span class="line">		gb.setConstraints(b4, gbs);</span><br><span class="line">		f.add(b2);</span><br><span class="line">		f.add(b3);</span><br><span class="line">		f.add(b4);</span><br><span class="line">		f.pack();</span><br><span class="line">		f.setVisible(true);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="CardLayout布局管理器"><a href="#CardLayout布局管理器" class="headerlink" title="CardLayout布局管理器"></a>CardLayout布局管理器</h2><p>CardLayout布局管理器以时间而非空间来管理它里面的组件，它将加入容器的所有组件看做一叠卡片，每次只有崔上面的那个Componet才可见。<br>CardLayout提供了两个构造器:</p>
+<ol>
+<li>CardLayout(): 创建默认的CardLayout布局管理器。</li>
+<li>CardLayout(intnhgap,int vgap): 通过指定卡片与容器左右边界的间距(hgap)，上下边界的间距(vgap)来创建布局管理器。<br>CardLayout控制组件的常见方法：</li>
+</ol>
+<ul>
+<li>first(Container target): 显示target容器中的第一张卡片。</li>
+<li>last(Container target): 显示target容器中的最后一张卡片。</li>
+<li>previous(Container target): 显示target容器中前一张卡片。</li>
+<li>next(Container target): 显示target容器中后一张卡片。</li>
+<li>show(Container target，String 那么): 显示target容器中指定名字的卡片。</li>
+</ul>
+<p>演示代码:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class CardLayout_text &#123;</span><br><span class="line">		Frame f = new Frame(&quot;测试窗口&quot;);</span><br><span class="line">		String[] name = &#123;&quot;第一张&quot;,&quot;第二张&quot;,&quot;第三张&quot;,&quot;第四张&quot;,&quot;第五张&quot;&#125;;</span><br><span class="line">		Panel pl = new Panel();</span><br><span class="line">		CardLayout c = new CardLayout();</span><br><span class="line">		public void init()</span><br><span class="line">		&#123;</span><br><span class="line">			pl.setLayout(c);</span><br><span class="line">			for(int i=0;i&lt;name.length;i++)</span><br><span class="line">			&#123;</span><br><span class="line">				pl.add(name[i],new Button(name[i]));</span><br><span class="line">			&#125;</span><br><span class="line">			Panel p = new Panel();</span><br><span class="line">			Button previous = new Button(&quot;上一张&quot;);</span><br><span class="line">			previous.addActionListener(new ActionListener()&#123;</span><br><span class="line">				public void actionPerformed(ActionEvent e)</span><br><span class="line">				&#123;</span><br><span class="line">					c.previous(pl);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;);</span><br><span class="line">			Button next = new Button(&quot;下一张&quot;);</span><br><span class="line">			next.addActionListener(new ActionListener() &#123;</span><br><span class="line">				public void actionPerformed(ActionEvent e)</span><br><span class="line">				&#123;</span><br><span class="line">					c.next(pl);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;);</span><br><span class="line">			Button first = new Button(&quot;第一张&quot;);</span><br><span class="line">			first.addActionListener(new ActionListener() &#123;</span><br><span class="line">				public void actionPerformed(ActionEvent e)</span><br><span class="line">				&#123;</span><br><span class="line">					c.first(pl);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;);</span><br><span class="line">			Button last = new Button(&quot;最后一张&quot;);</span><br><span class="line">			last.addActionListener(new ActionListener() &#123;</span><br><span class="line">				public void actionPerformed(ActionEvent e)</span><br><span class="line">				&#123;</span><br><span class="line">					c.last(pl);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;);</span><br><span class="line">			Button third = new Button(&quot;第三张&quot;);</span><br><span class="line">			third.addActionListener(new ActionListener() &#123;</span><br><span class="line">				public void actionPerformed(ActionEvent e)</span><br><span class="line">				&#123;</span><br><span class="line">					c.show(pl,&quot;第三张&quot;);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;);</span><br><span class="line">			p.add(previous);</span><br><span class="line">			p.add(next);</span><br><span class="line">			p.add(first);</span><br><span class="line">			p.add(last);</span><br><span class="line">			p.add(third);</span><br><span class="line">			f.add(pl);</span><br><span class="line">			f.add(p,BorderLayout.SOUTH);</span><br><span class="line">			f.pack();</span><br><span class="line">			f.setVisible(true);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">public static void main(String[] args)</span><br><span class="line">	&#123;</span><br><span class="line">		</span><br><span class="line">		newCardLayout_text().init();</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="绝对定位"><a href="#绝对定位" class="headerlink" title="绝对定位"></a>绝对定位</h2><ol>
+<li>将Container的布局管理器设置为null：setLayout(null);</li>
+<li><p>先调用 setBounds()或setSize()方法来先设置组建的大小、位置。或者直接创建GUI组件时通过构造咱叔指定该组件的大小、位置，然后添加到容器中。</p>
+<p>演示代码：</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public class text&#123;</span><br><span class="line">	</span><br><span class="line">	Frame f = new Frame(&quot;测试窗口&quot;);</span><br><span class="line">	Button b1 = new Button(&quot;第一个按钮&quot;);</span><br><span class="line">	Button b2 = new Button(&quot;第二个按钮&quot;);</span><br><span class="line">	public void init()</span><br><span class="line">	&#123;</span><br><span class="line">		f.setLayout(null);</span><br><span class="line">		b1.setBounds(20,30,90,28);</span><br><span class="line">		f.add(b1);</span><br><span class="line">		b2.setBounds(50,45,120,35);</span><br><span class="line">		f.add(b2);</span><br><span class="line">		f.setBounds(50,50,200,100);</span><br><span class="line">		f.setVisible(true);</span><br><span class="line">	&#125;</span><br><span class="line">	public static void main(String[] args)</span><br><span class="line">	&#123;</span><br><span class="line">		new text().init();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="BoxLayout布局管理器"><a href="#BoxLayout布局管理器" class="headerlink" title="BoxLayout布局管理器"></a>BoxLayout布局管理器</h2><p>BoxLayout布局管理器保留了GridBagLayout的优点，但没有那么复杂，BoxLayout布局管理器可以在垂直和水平两个方向上拜访GUI组件，BoxLayout提供了一个简单的构造器:</p>
+<ul>
+<li>BoxLayout(Container target,int axis): 指定创建基于target容器的BoxLayout布局管理器，该布局管理器里组件按axis方向排列。axis可以为BoxLayout.X_AXIS（横向）和BoxLayout.Y_AXIS（纵向）两个方向。<br>代码如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class BoxLayout_text&#123;</span><br><span class="line">	private Frame f = new Frame(&quot;测试&quot;);</span><br><span class="line">	public void init()</span><br><span class="line">	&#123;</span><br><span class="line">		f.setLayout(new BoxLayout(f, BoxLayout.Y_AXIS));</span><br><span class="line">		f.add(new Button(&quot;第一个按钮&quot;));</span><br><span class="line">		f.add(new Button(&quot;按钮二&quot;));</span><br><span class="line">		f.pack();</span><br><span class="line">		f.setVisible(true);</span><br><span class="line">	&#125;</span><br><span class="line">	public static void main(String[] args)</span><br><span class="line">	&#123;</span><br><span class="line">		new BoxLayout_text().init();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/23/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/haha.jpeg"
+                alt="lkl" />
+            
+              <p class="site-author-name" itemprop="name">lkl</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/ssmlkl" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#java-awt-布局管理器"><span class="nav-number">1.</span> <span class="nav-text">java awt 布局管理器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#FlowLayout布局管理器"><span class="nav-number">1.1.</span> <span class="nav-text">FlowLayout布局管理器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BorderLayout布局管理器"><span class="nav-number">1.2.</span> <span class="nav-text">BorderLayout布局管理器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GridLayout布局管理器"><span class="nav-number">1.3.</span> <span class="nav-text">GridLayout布局管理器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GridBagLayout布局管理器"><span class="nav-number">1.4.</span> <span class="nav-text">GridBagLayout布局管理器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CardLayout布局管理器"><span class="nav-number">1.5.</span> <span class="nav-text">CardLayout布局管理器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#绝对定位"><span class="nav-number">1.6.</span> <span class="nav-text">绝对定位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BoxLayout布局管理器"><span class="nav-number">1.7.</span> <span class="nav-text">BoxLayout布局管理器</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lkl</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
