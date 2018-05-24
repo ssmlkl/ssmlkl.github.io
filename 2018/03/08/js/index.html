@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="lkl的博客">
 <meta property="og:description" content="js中包括两种属性：数据属性和访问器属性">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-08T13:58:28.871Z">
+<meta property="og:updated_time" content="2018-03-09T03:16:50.894Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js的两种属性">
 <meta name="twitter:description" content="js中包括两种属性：数据属性和访问器属性">
@@ -382,21 +382,21 @@
 <a id="more"></a>
 <h3 id="1-数据属性"><a href="#1-数据属性" class="headerlink" title="1.数据属性"></a>1.数据属性</h3><p>数据属性包含一个数据值的位置。在这个位置可以读取和写入值。数据属性有 4 个描述其行为的特性。</p>
 <ul>
-<li>[[Configurable]] :表示能否通过 delete 删除属性从而重新定义属性,能否修改属性的特<br>  性,或者能否把属性修改为访问器属性。像前面例子中那样直接在对象上定义的属性,它们的<br>  这个特性默认值为 true 。 </li>
+<li>[[Configurable]] :表示能否通过 delete 删除属性从而重新定义属性,能否修改属性的特性,或者能否把属性修改为访问器属性。它们的这个特性默认值为 true 。 </li>
 </ul>
 <ul>
-<li><p>[[Enumerable]] :表示能否通过 for-in 循环返回属性。像前面例子中那样直接在对象上定<br>  义的属性,它们的这个特性默认值为 true 。</p>
+<li><p>[[Enumerable]] :表示能否通过 for-in 循环返回属性。像前面例子中那样直接在对象上定义的属性,它们的这个特性默认值为 true 。</p>
 </li>
-<li><p>[[Writable]] :表示能否修改属性的值。像前面例子中那样直接在对象上定义的属性,它们的<br>  这个特性默认值为 true 。</p>
+<li><p>[[Writable]] :表示能否修改属性的值。像前面例子中那样直接在对象上定义的属性,它们的这个特性默认值为 true 。</p>
 </li>
-<li><p>[[Value]] :包含这个属性的数据值。读取属性值的时候,从这个位置读;写入属性值的时候,<br>  把新值保存在这个位置。这个特性的默认值为 undefined 。</p>
+<li><p>[[Value]] :包含这个属性的数据值。读取属性值的时候,从这个位置读;写入属性值的时候,把新值保存在这个位置。这个特性的默认值为 undefined 。</p>
 </li>
 </ul>
-<h3 id="2-访问器属性"><a href="#2-访问器属性" class="headerlink" title="2.访问器属性"></a>2.访问器属性</h3><p>访问器属性不包含数据值;它们包含一对儿 getter 和 setter 函数(不过,这两个函数都不是必需的)<br>。<br>在读取访问器属性时,会调用 getter 函数,这个函数负责返回有效的值;在写入访问器属性时,会调用<br>setter 函数并传入新值,这个函数负责决定如何处理数据。访问器属性有如下 4 个特性。</p>
+<h3 id="2-访问器属性"><a href="#2-访问器属性" class="headerlink" title="2.访问器属性"></a>2.访问器属性</h3><p>访问器属性不包含数据值;它们包含一对儿 getter 和 setter 函数(不过,这两个函数都不是必需的)。在读取访问器属性时,会调用 getter 函数,这个函数负责返回有效的值;在写入访问器属性时,会调用setter 函数并传入新值,这个函数负责决定如何处理数据。访问器属性有如下 4 个特性。</p>
 <ul>
-<li><p>[[Configurable]] :表示能否通过 delete 删除属性从而重新定义属性,能否修改属性的特性,或者能否把属性修改为数据属性。对于直接在对象上定义的属性,这个特性的默认值为<br> true 。</p>
+<li><p>[[Configurable]] :表示能否通过 delete 删除属性从而重新定义属性,能否修改属性的特性,或者能否把属性修改为数据属性。对于直接在对象上定义的属性,这个特性的默认值为 true 。</p>
 </li>
-<li><p>[[Enumerable]] :表示能否通过 for-in 循环返回属性。对于直接在对象上定义的属性,这<br>  个特性的默认值为 true 。</p>
+<li><p>[[Enumerable]] :表示能否通过 for-in 循环返回属性。对于直接在对象上定义的属性,这个特性的默认值为 true 。</p>
 </li>
 <li><p>[[Get]] :在读取属性时调用的函数。默认值为 undefined 。</p>
 </li>
@@ -432,8 +432,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/02/06/java/" rel="next" title="java布局管理器">
-                <i class="fa fa-chevron-left"></i> java布局管理器
+              <a href="/2018/03/08/jsclass/" rel="next" title="js的两种属性">
+                <i class="fa fa-chevron-left"></i> js的两种属性
               </a>
             
           </div>
@@ -441,6 +441,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/24/java_socket/" rel="prev" title="java 套接字">
+                java 套接字 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -521,7 +525,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
