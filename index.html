@@ -286,6 +286,182 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/24/land_of_lisp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lkl">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/haha.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lkl的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/24/land_of_lisp/" itemprop="url">land of lisp 笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-24T00:00:00+08:00">
+                2018-10-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/lisp/" itemprop="url" rel="index">
+                    <span itemprop="name">lisp</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="land-of-lisp-note"><a href="#land-of-lisp-note" class="headerlink" title="land of lisp note"></a>land of lisp note</h1><blockquote>
+<p>by lkl</p>
+</blockquote>
+<h2 id="section-1"><a href="#section-1" class="headerlink" title="section 1"></a>section 1</h2><h3 id="chapter-1-2"><a href="#chapter-1-2" class="headerlink" title="chapter 1-2"></a>chapter 1-2</h3><p>定义全局变量：<br>(defparameter <em>small</em> 1)<br>(defvar <em>small</em> 2)</p>
+<p>定义局部变量：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(let (variable declarations)</span><br><span class="line"> ...body...)</span><br><span class="line">&gt; (let ((a 5)</span><br><span class="line">	    (b 6))</span><br><span class="line">	 (+ a b))</span><br><span class="line">11</span><br></pre></td></tr></table></figure>
+<p>ash(arithmetic shift functionv),算数位移方法，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; (ash 11 1)</span><br><span class="line">22</span><br><span class="line"></span><br><span class="line">&gt; (ash 11 -1)</span><br><span class="line">5</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; (let ((a 5)</span><br><span class="line">	(b 6))</span><br><span class="line">	(+ a b))</span><br><span class="line">11</span><br></pre></td></tr></table></figure>
+<h3 id="chapter-3"><a href="#chapter-3" class="headerlink" title="chapter 3"></a>chapter 3</h3><p>定义全局函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; (defun function_name (arguments) </span><br><span class="line">       ...)</span><br></pre></td></tr></table></figure>
+<p>定义局部函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(flet ((function_name (arguments)       </span><br><span class="line">     ...function body...))</span><br><span class="line">     ...body...)</span><br><span class="line">     </span><br><span class="line">&gt; (flet ((f (n)</span><br><span class="line">      	    (+ n 10)))</span><br><span class="line">      	    (f 5))</span><br><span class="line">15</span><br></pre></td></tr></table></figure>
+<p>比较两个符号是否相同：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; (eq &apos;fooo &apos;FoOo)</span><br><span class="line">T</span><br></pre></td></tr></table></figure>
+<p>求幂：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; (expt 53 53)</span><br><span class="line">24356848165022712132477606520104725518533453128685640844505130879576720609150223301256150373</span><br></pre></td></tr></table></figure>
+<p>显示字符串：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; (princ &quot;Tutti Frutti&quot;)</span><br><span class="line">Tutti Frutti</span><br><span class="line">&quot;Tutti Frutti&quot;</span><br></pre></td></tr></table></figure>
+<p>链接任何两个数据（无论类型）:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; (cons &apos;chicken &apos;cat)</span><br><span class="line">(CHICKEN . CAT)</span><br><span class="line">&gt; (cons &apos;pork (cons &apos;beef (cons &apos;chicken ())))</span><br><span class="line">(PORK BEEF CHICKEN)</span><br><span class="line">&gt; (cons &apos;pork &apos;(beef chicken))</span><br><span class="line">(PORK BEEF CHICKEN)</span><br></pre></td></tr></table></figure>
+<p>从第一个cell中取出元素：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; (car &apos;(pork beef chicken))</span><br><span class="line">PORK</span><br></pre></td></tr></table></figure>
+<p>从第二个cell或剩下所有cell中取出元素：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; (cdr &apos;(pork beef chicken))</span><br><span class="line">(BEEF CHICKEN)</span><br></pre></td></tr></table></figure>
+<p>可以将car和cdr串联到cadr，cdar或cadadr等新功能中。 可以简洁地从复杂列表中提取特定数据。 输入cadr与使用car和cdr一样，它从列表中返回第二项。 （第二个cons单元格的第一个cell将包含该项目。）看一下这个例子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; (cdr &apos;(pork beef chicken))</span><br><span class="line">(BEEF CHICKEN)</span><br><span class="line">&gt; (car &apos;(beef chicken))</span><br><span class="line">BEEF</span><br><span class="line">&gt; (car (cdr &apos;(pork beef chicken)))</span><br><span class="line">BEEF</span><br><span class="line">&gt; (cadr &apos;(pork beef chicken))</span><br><span class="line">BEEF</span><br></pre></td></tr></table></figure>
+<p><em>在这里注意：</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; (cddddr &apos;(pork beef chicken fish apple orange ))</span><br><span class="line">(APPLE ORANGE)</span><br></pre></td></tr></table></figure>
+<p>c*r最多可达四级。</p>
+<p>这里成功取出了最后两个元素，但是当按照同样的方法取最后一个元素时：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&gt; (cdddddr &apos;(pork beef chicken fish apple orange ))</span><br><span class="line"></span><br><span class="line">*** - EVAL: undefined function CDDDDDR</span><br><span class="line">The following restarts are available:</span><br><span class="line">USE-VALUE      :R1      Input a value to be used instead of (FDEFINITION &apos;CDDDDDR).</span><br><span class="line">RETRY          :R2      Retry</span><br><span class="line">STORE-VALUE    :R3      Input a new value for (FDEFINITION &apos;CDDDDDR).</span><br><span class="line">ABORT          :R4      Abort debug loop</span><br><span class="line">ABORT          :R5      Abort debug loop</span><br><span class="line">ABORT          :R6      Abort debug loop</span><br><span class="line">ABORT          :R7      Abort debug loop</span><br><span class="line">ABORT          :R8      Abort debug loop</span><br><span class="line">ABORT          :R9      Abort debug loop</span><br><span class="line">ABORT          :R10     Abort debug loop</span><br><span class="line">ABORT          :R11     Abort debug loop</span><br><span class="line">ABORT          :R12     Abort debug loop</span><br><span class="line">ABORT          :R13     Abort debug loop</span><br><span class="line">ABORT          :R14     Abort debug loop</span><br><span class="line">ABORT          :R15     Abort debug loop</span><br><span class="line">ABORT          :R16     Abort debug loop</span><br><span class="line">ABORT          :R17     Abort main loop</span><br></pre></td></tr></table></figure>
+<p>构建列表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; (list &apos;pork &apos;beef &apos;chicken)</span><br><span class="line">(PORK BEEF CHICKEN)</span><br></pre></td></tr></table></figure>
+<p>以下三种创建列表的方式没有区别：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; (cons &apos;pork (cons &apos;beef (cons &apos;chicken ())))</span><br><span class="line">(PORK BEEF CHICKEN)</span><br><span class="line">&gt; (list &apos;pork &apos;beef &apos;chicken)</span><br><span class="line">(PORK BEEF CHICKEN)</span><br><span class="line">&gt; &apos;(pork beef chicken)</span><br><span class="line">(PORK BEEF CHICKEN)</span><br></pre></td></tr></table></figure>
+<h2 id="section-2"><a href="#section-2" class="headerlink" title="section 2"></a>section 2</h2><h3 id="chapter-4"><a href="#chapter-4" class="headerlink" title="chapter 4"></a>chapter 4</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/24/java_socket/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -382,152 +558,6 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/05/24/java_socket/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/08/js/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lkl">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/haha.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lkl的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/08/js/" itemprop="url">js的两种属性</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-08T00:00:00+08:00">
-                2018-03-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">javascript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>js中包括两种属性：数据属性和访问器属性</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/03/08/js/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -675,6 +705,152 @@
 <h4 id="2-构造函数模式"><a href="#2-构造函数模式" class="headerlink" title="2. 构造函数模式"></a>2. 构造函数模式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function createPerson2(name,age,job)</span><br><span class="line">&#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.age = age;</span><br><span class="line">    this.sayName = function()&#123;</span><br><span class="line">    	alert(this.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var p1 = new createPerson2(&quot;lilin&quot;,22);</span><br><span class="line">alert(p1.name);</span><br><span class="line">p1.sayName();</span><br></pre></td></tr></table></figure>
 
           
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/08/js/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lkl">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/haha.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lkl的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/08/js/" itemprop="url">js的两种属性</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-08T00:00:00+08:00">
+                2018-03-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>js中包括两种属性：数据属性和访问器属性</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/08/js/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1042,7 +1218,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1053,7 +1229,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
